@@ -1,0 +1,19 @@
+{
+  "name": "retro-math-arcade",
+  "version": "1.0.0",
+  "description": "A retro lo-fi web app platform for math fact games for ages 6–9.",
+  "private": true,
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "math",
+    "games",
+    "kids",
+    "facts",
+    "arcade"
+  ],
+  "author": "",
+  "license": "MIT"
+}
+
