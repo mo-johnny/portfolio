@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Softball Strategy</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Arial Black', 'Arial', sans-serif;
+      background: #e8e8e8;
+      min-height: 100vh;
+      padding: 12px;
+    }
+    .layout {
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      grid-template-rows: 1fr auto;
+      gap: 12px;
+      max-width: none;
+      margin: 0 auto;
+      min-height: calc(100vh - 24px);
+      width: 100%;
+    }
+    .field-section {
+      grid-row: 1;
+      grid-column: 1;
+      background: #fff;
+      border: 3px solid #000;
+      border-radius: 4px;
+      padding: 8px;
+      position: relative;
+      min-height: 0;
+    }
+    .diamond {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      min-width: 0;
+      min-height: 0;
+      background: #5a9c2d;
+    }
+    .field-image {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+    .base {
+      position: absolute;
+      width: 12%;
+      aspect-ratio: 1;
+      background: transparent;
+      border: none;
+      border-radius: 2px;
+    }
+    /* Base positions from SVG viewBox (0 0 792.796 716) – home not used for runners */
+    .base.home { bottom: 15%; left: 50%; transform: translateX(-50%); }
+    .base.first { top: 63%; right: 31%; transform: translate(50%, -50%); }
+    .base.second { top: 36%; left: 50%; transform: translateX(-50%); }
+    .base.third { top: 62%; left: 30%; transform: translate(-50%, -50%); }
+    .runner-icon {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 28px;
+      height: 28px;
+      margin: -14px 0 0 -14px;
+      border-radius: 50%;
+      background: #2563eb;
+      pointer-events: none;
+      z-index: 2;
+    }
+    .play-panel {
+      background: #fff;
+      border: 3px solid #000;
+      border-radius: 4px;
+      padding: 12px 14px;
+      grid-column: 2;
+      grid-row: 1;
+      align-self: start;
+    }
+    .choices-row {
+      grid-column: 1 / -1;
+      grid-row: 2;
+    }
+    .play-panel h2 {
+      margin: 0 0 10px 0;
+      font-size: 1.1rem;
+      font-weight: 900;
+    }
+    .play-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+    .play-row:last-child { margin-bottom: 0; }
+    .play-icon { width: 24px; height: 24px; flex-shrink: 0; }
+    .play-label { font-weight: bold; min-width: 70px; }
+    .score-val, .inning-val { font-weight: normal; }
+    .runners-text {
+      font-weight: bold;
+      text-align: right;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 2px;
+    }
+    .outs-circles {
+      display: flex;
+      gap: 6px;
+    }
+    .out-circle {
+      width: 20px; height: 20px;
+      border: 2px solid #c00;
+      border-radius: 50%;
+      background: transparent;
+    }
+    .out-circle.filled { background: #c00; }
+    .choices-row {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 12px;
+      align-items: flex-end;
+      justify-content: flex-start;
+    }
+    .choice-panel {
+      background: #fff;
+      border: 3px solid #000;
+      border-radius: 4px;
+      padding: 10px 12px;
+      width: 260px;
+      height: 180px;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
+    }
+    .choice-panel h3 {
+      margin: 0 0 8px 0;
+      font-size: 0.95rem;
+      font-weight: 900;
+    }
+    .number-options {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+    .num-btn {
+      width: 36px; height: 36px;
+      border: 2px solid #000;
+      border-radius: 50%;
+      background: #fff;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+    .num-btn:hover { background: #f0f0f0; }
+    .num-btn.selected { outline: 3px solid #c9a227; outline-offset: 2px; }
+    .text-options { display: flex; flex-wrap: wrap; gap: 6px; }
+    .text-btn {
+      padding: 6px 10px;
+      border: 2px solid #000;
+      border-radius: 4px;
+      background: #fff;
+      font-size: 0.75rem;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .text-btn:hover { background: #f0f0f0; }
+    .text-btn.selected { outline: 3px solid #c9a227; outline-offset: 2px; }
+    .next-btn {
+      width: 180px;
+      height: 180px;
+      flex-shrink: 0;
+      background: #e8762b;
+      border: 3px solid #000;
+      border-radius: 4px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .next-btn:hover { background: #f08840; }
+    .next-btn svg { width: 28px; height: 28px; }
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+    }
+    .modal-overlay.show { display: flex; }
+    .modal {
+      background: #fff;
+      border: 3px solid #000;
+      border-radius: 8px;
+      padding: 24px;
+      max-width: 360px;
+      text-align: center;
+    }
+    .modal h3 { margin: 0 0 12px 0; color: #c00; }
+    .modal p { margin: 0 0 16px 0; }
+    .modal button {
+      padding: 10px 24px;
+      background: #333;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <div class="field-section">
+      <div class="diamond">
+        <img class="field-image" src="SoftballFieldVector.svg" alt="Softball field">
+        <div class="base home" aria-hidden="true"></div>
+        <div class="base first">
+          <span class="runner-icon runner-dot" style="display: none;" aria-hidden="true"></span>
+        </div>
+        <div class="base second">
+          <span class="runner-icon runner-dot" style="display: none;" aria-hidden="true"></span>
+        </div>
+        <div class="base third">
+          <span class="runner-icon runner-dot" style="display: none;" aria-hidden="true"></span>
+        </div>
+      </div>
+    </div>
+    <div class="play-panel">
+      <h2>THE PLAY...</h2>
+      <div class="play-row">
+        <svg class="play-icon" viewBox="0 0 24 24" fill="#2563eb"><rect x="4" y="4" width="7" height="7"/><rect x="13" y="4" width="7" height="7"/></svg>
+        <span class="play-label">SCORE:</span>
+        <span class="score-val" id="scoreVal">0-0</span>
+      </div>
+      <div class="play-row">
+        <svg class="play-icon" viewBox="0 0 24 24" fill="#6b21a8"><circle cx="12" cy="12" r="9" stroke="currentColor" fill="none" stroke-width="2"/><path d="M12 6v6l4 2" stroke="currentColor" fill="none" stroke-width="2"/></svg>
+        <span class="play-label">INNING:</span>
+        <span class="inning-val" id="inningVal">Top 1st</span>
+      </div>
+      <div class="play-row">
+        <svg class="play-icon" viewBox="0 0 24 24" fill="#ca8a04"><path d="M8 18l4-6 4 6H8z" stroke="currentColor" fill="currentColor"/></svg>
+        <span class="play-label">RUNNERS:</span>
+        <span class="runners-text" id="runnersText">None</span>
+      </div>
+      <div class="play-row">
+        <svg class="play-icon" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" stroke="#c00" stroke-width="2"/></svg>
+        <span class="play-label">OUTS:</span>
+        <div class="outs-circles" id="outsCircles">
+          <div class="out-circle" data-n="0"></div>
+          <div class="out-circle" data-n="1"></div>
+          <div class="out-circle" data-n="2"></div>
+        </div>
+      </div>
+    </div>
+    <div class="choices-row">
+      <div class="choice-panel">
+        <h3>INNIES GO</h3>
+        <div class="number-options" id="inniesNumbers">
+          <button type="button" class="num-btn" data-val="1">1</button>
+          <button type="button" class="num-btn" data-val="2">2</button>
+          <button type="button" class="num-btn" data-val="3">3</button>
+          <button type="button" class="num-btn" data-val="4">4</button>
+        </div>
+        <div class="text-options">
+          <button type="button" class="text-btn" data-val="ANY SQUARE BASE">ANY SQUARE BASE</button>
+          <button type="button" class="text-btn" data-val="ANY BASE">ANY BASE</button>
+          <button type="button" class="text-btn" data-val="1 OR 2">1 OR 2</button>
+        </div>
+      </div>
+      <div class="choice-panel">
+        <h3>OUTTIES CUT</h3>
+        <div class="number-options" id="outtiesNumbers">
+          <button type="button" class="num-btn" data-val="1">1</button>
+          <button type="button" class="num-btn" data-val="2">2</button>
+          <button type="button" class="num-btn" data-val="3">3</button>
+          <button type="button" class="num-btn" data-val="4">4</button>
+        </div>
+      </div>
+      <button type="button" class="next-btn" id="nextBtn" aria-label="Next round">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal">
+      <h3>Incorrect</h3>
+      <p id="modalMessage">That's not the right play for this situation.</p>
+      <button type="button" id="modalDismiss">OK</button>
+    </div>
+  </div>
+  <script type="text/csv" id="embedded-scenarios">Runner on 1st,Runner on 2nd,Runner on 3rd,OUTS,INNIES GO,OUTTIES CUT,INNIES GO LATE,OUTTIES CUT LATE
+Y,N,N,0,2,3,2,3
+Y,N,N,1,2,3,2,3
+Y,N,N,2,1 OR 2,3,1 OR 2,3
+Y,Y,N,0,ANY SQUARE BASE,4,ANY SQUARE BASE,4
+Y,Y,N,1,ANY SQUARE BASE,4,ANY SQUARE BASE,4
+Y,Y,N,2,ANY SQUARE BASE,4,ANY SQUARE BASE,4
+Y,Y,Y,0,ANY BASE,4,4,4
+Y,Y,Y,1,ANY BASE,4,4,4
+Y,Y,Y,2,ANY BASE,4,ANY BASE,4
+N,Y,N,0,1,4,1,4
+N,Y,N,1,1,4,1,4
+N,Y,N,2,1,4,1,4
+N,Y,Y,0,1,4,4,4
+N,Y,Y,1,1,4,4,4
+N,Y,Y,2,1,4,1,4
+N,N,Y,0,1,2,4,2
+N,N,Y,1,1,2,4,2
+N,N,Y,2,1,2,1,2
+Y,N,Y,0,2,3,4,3
+Y,N,Y,1,2,3,4,3
+Y,N,Y,2,1 OR 2,3,1 OR 2,3
+N,N,N,0,1,2,1,2
+N,N,N,1,1,2,1,2
+N,N,N,2,1,2,1,2</script>
+  <script>
+    (function () {
+      const scoreEl = document.getElementById('scoreVal');
+      const inningEl = document.getElementById('inningVal');
+      const runnersTextEl = document.getElementById('runnersText');
+      const outsCirclesEl = document.getElementById('outsCircles');
+      const inniesNumbers = document.getElementById('inniesNumbers');
+      const outtiesNumbers = document.getElementById('outtiesNumbers');
+      const nextBtn = document.getElementById('nextBtn');
+      const modalOverlay = document.getElementById('modalOverlay');
+      const modalMessage = document.getElementById('modalMessage');
+      const modalDismiss = document.getElementById('modalDismiss');
+
+      let scenarios = [];
+      let state = { ourScore: 0, otherScore: 0, inning: 1, half: 'Top', outs: 0, runners: [] };
+      let currentScenario = null;
+      let selectedInnies = null;
+      let selectedOutties = null;
+
+      function parseCSV(text) {
+        const lines = text.trim().split('\n');
+        const headers = lines[0].split(',').map(h => h.trim());
+        return lines.slice(1).map(line => {
+          const values = [];
+          let cur = '', inQuotes = false;
+          for (let i = 0; i < line.length; i++) {
+            const c = line[i];
+            if (c === '"') { inQuotes = !inQuotes; continue; }
+            if (!inQuotes && c === ',') { values.push(cur.trim()); cur = ''; continue; }
+            cur += c;
+          }
+          values.push(cur.trim());
+          const row = {};
+          headers.forEach((h, i) => { row[h] = values[i] != null ? values[i] : ''; });
+          // Map softball-scenarios.csv columns: Runner on 1st, Runner on 2nd, Runner on 3rd, OUTS, INNIES GO, OUTTIES CUT, INNIES GO LATE, OUTTIES CUT LATE
+          const r1 = (row['Runner on 1st'] || values[0] || '').toUpperCase();
+          const r2 = (row['Runner on 2nd'] || values[1] || '').toUpperCase();
+          const r3 = (row['Runner on 3rd'] || values[2] || '').toUpperCase();
+          row.runners = [r1 === 'Y' && '1st', r2 === 'Y' && '2nd', r3 === 'Y' && '3rd'].filter(Boolean);
+          row.outs = row['OUTS'] ?? values[3] ?? '0';
+          row.innies_go = row['INNIES GO'] ?? values[4] ?? '';
+          row.outties_cut = row['OUTTIES CUT'] ?? values[5] ?? '';
+          row.innies_go_close = row['INNIES GO LATE'] ?? values[6] ?? '';
+          row.outties_cut_close = row['OUTTIES CUT LATE'] ?? values[7] ?? '';
+          return row;
+        });
+      }
+
+      function loadScenarios() {
+        return fetch('softball-scenarios.csv')
+          .then(r => r.text())
+          .then(text => {
+            scenarios = parseCSV(text).filter(r => r.innies_go != null && r.innies_go !== '');
+          })
+          .catch(() => {
+            // When opened as file://, fetch fails; use embedded CSV
+            const el = document.getElementById('embedded-scenarios');
+            const text = el ? el.textContent : '';
+            scenarios = text ? parseCSV(text).filter(r => r.innies_go != null && r.innies_go !== '') : [];
+          });
+      }
+
+      function randomInt(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+      }
+
+      function parseRunners(runners) {
+        if (Array.isArray(runners)) return runners;
+        if (!runners || !String(runners).trim()) return [];
+        return String(runners).split(/\s+/).map(s => s.trim()).filter(Boolean);
+      }
+
+      function isCloseGame() {
+        const { ourScore, otherScore, inning } = state;
+        if (inning < 4 || inning > 6) return false;
+        const diff = ourScore - otherScore;
+        return diff === 0 || diff === 1;
+      }
+
+      function getCorrectAnswers() {
+        if (!currentScenario) return { innies: null, outties: null };
+        const close = isCloseGame();
+        return {
+          innies: (close ? currentScenario.innies_go_close : currentScenario.innies_go) || '',
+          outties: (close ? currentScenario.outties_cut_close : currentScenario.outties_cut) || ''
+        };
+      }
+
+      function normalizeAnswer(val) {
+        if (val == null) return '';
+        return String(val).trim().toUpperCase();
+      }
+
+      function startRound() {
+        if (scenarios.length === 0) return;
+        const scenario = scenarios[randomInt(0, scenarios.length - 1)];
+        currentScenario = scenario;
+        state = {
+          ourScore: randomInt(0, 12),
+          otherScore: randomInt(0, 12),
+          inning: randomInt(1, 6),
+          half: Math.random() < 0.5 ? 'Top' : 'Bottom',
+          outs: Math.min(2, parseInt(scenario.outs, 10) || 0),
+          runners: parseRunners(scenario.runners)
+        };
+        selectedInnies = null;
+        selectedOutties = null;
+        render();
+      }
+
+      function render() {
+        scoreEl.textContent = state.ourScore + '-' + state.otherScore;
+        inningEl.textContent = state.half + ' ' + (state.inning === 1 ? '1st' : state.inning === 2 ? '2nd' : state.inning === 3 ? '3rd' : state.inning + 'th');
+                const baseOrder = ['1st', '2nd', '3rd'];
+        const occupied = baseOrder.filter(b => state.runners.includes(b));
+        runnersTextEl.textContent = '';
+        if (occupied.length) {
+          occupied.forEach(b => {
+            const line = document.createElement('div');
+            line.textContent = b.toUpperCase();
+            runnersTextEl.appendChild(line);
+          });
+        } else {
+          runnersTextEl.textContent = 'None';
+        }
+        outsCirclesEl.querySelectorAll('.out-circle').forEach((el, i) => {
+          el.classList.toggle('filled', i < state.outs);
+        });
+        document.querySelectorAll('.base.first .runner-dot, .base.second .runner-dot, .base.third .runner-dot').forEach(icon => {
+          icon.style.display = 'none';
+        });
+        state.runners.forEach(base => {
+          const sel = base === '1st' ? '.base.first' : base === '2nd' ? '.base.second' : '.base.third';
+          const icon = document.querySelector(sel + ' .runner-dot');
+          if (icon) icon.style.display = 'block';
+        });
+        inniesNumbers.querySelectorAll('.num-btn').forEach(btn => {
+          btn.classList.toggle('selected', selectedInnies === btn.dataset.val);
+        });
+        document.querySelectorAll('#inniesNumbers + .text-options .text-btn').forEach(btn => {
+          btn.classList.toggle('selected', selectedInnies === btn.dataset.val);
+        });
+        outtiesNumbers.querySelectorAll('.num-btn').forEach(btn => {
+          btn.classList.toggle('selected', selectedOutties === btn.dataset.val);
+        });
+        document.querySelectorAll('#outtiesNumbers + .text-options .text-btn').forEach(btn => {
+          btn.classList.toggle('selected', selectedOutties === btn.dataset.val);
+        });
+      }
+
+      function selectInnies(val) {
+        selectedInnies = val;
+        render();
+      }
+
+      function selectOutties(val) {
+        selectedOutties = val;
+        render();
+      }
+
+      inniesNumbers.querySelectorAll('.num-btn').forEach(btn => {
+        btn.addEventListener('click', () => selectInnies(btn.dataset.val));
+      });
+      document.querySelectorAll('#inniesNumbers + .text-options .text-btn').forEach(btn => {
+        btn.addEventListener('click', () => selectInnies(btn.dataset.val));
+      });
+      outtiesNumbers.querySelectorAll('.num-btn').forEach(btn => {
+        btn.addEventListener('click', () => selectOutties(btn.dataset.val));
+      });
+      document.querySelectorAll('#outtiesNumbers + .text-options .text-btn').forEach(btn => {
+        btn.addEventListener('click', () => selectOutties(btn.dataset.val));
+      });
+
+      nextBtn.addEventListener('click', () => {
+        if (selectedInnies == null || selectedOutties == null) return;
+        const correct = getCorrectAnswers();
+        const inniesMatch = normalizeAnswer(selectedInnies) === normalizeAnswer(correct.innies);
+        const outtiesMatch = normalizeAnswer(selectedOutties) === normalizeAnswer(correct.outties);
+        if (inniesMatch && outtiesMatch) {
+          startRound();
+        } else {
+          let msg = "That's not the right play for this situation.";
+          if (!inniesMatch && !outtiesMatch) msg = "Innies and Outties don't match the correct play.";
+          else if (!inniesMatch) msg = "Innies GO should be: " + correct.innies + ".";
+          else msg = "Outties CUT should be: " + correct.outties + ".";
+          modalMessage.textContent = msg;
+          modalOverlay.classList.add('show');
+        }
+      });
+
+      modalDismiss.addEventListener('click', () => {
+        modalOverlay.classList.remove('show');
+      });
+
+      loadScenarios().then(() => startRound());
+    })();
+  </script>
+</body>
+</html>
