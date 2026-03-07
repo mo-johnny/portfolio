@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- REVERT COPY: To restore the version where field/Play use 1fr + 280px grid and field left aligns with INNIES, copy this file over softball-strategy.html -->
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -22,32 +23,48 @@
       margin: 0 auto;
       min-height: calc(100vh - 24px);
       width: 100%;
+      background: #e8e8e8;
     }
     .field-section {
       grid-row: 1;
       grid-column: 1;
-      background: #fff;
+      background: #e8e8e8;
+      min-height: 0;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 8px 8px 8px 0;
+      container-type: size;
+      box-sizing: border-box;
+    }
+    /* Frame matches field image aspect ratio (792.796 × 716). Sized to fit inside section padding so it isn’t clipped. */
+    .field-frame {
+      position: relative;
+      width: calc((100cqh - 24px) * 792.796 / 716);
+      height: calc(100cqh - 24px);
+      flex-shrink: 0;
       border: 3px solid #000;
       border-radius: 4px;
-      padding: 8px;
-      position: relative;
-      min-height: 0;
+      background: #5a9c2d;
+      container-type: size;
+      box-sizing: border-box;
     }
     .diamond {
-      position: relative;
+      position: absolute;
+      inset: 0;
       width: 100%;
       height: 100%;
-      min-width: 0;
-      min-height: 0;
-      background: #5a9c2d;
+      border-radius: 1px;
     }
     .field-image {
       position: absolute;
       inset: 0;
       width: 100%;
       height: 100%;
-      object-fit: contain;
+      object-fit: fill;
       display: block;
+      border-radius: 1px;
     }
     .base {
       position: absolute;
@@ -75,13 +92,13 @@
       z-index: 2;
     }
     .play-panel {
+      grid-column: 2;
+      grid-row: 1;
+      align-self: start;
       background: #fff;
       border: 3px solid #000;
       border-radius: 4px;
       padding: 12px 14px;
-      grid-column: 2;
-      grid-row: 1;
-      align-self: start;
     }
     .choices-row {
       grid-column: 1 / -1;
@@ -221,6 +238,7 @@
 <body>
   <div class="layout">
     <div class="field-section">
+      <div class="field-frame">
       <div class="diamond">
         <img class="field-image" src="SoftballFieldVector.svg" alt="Softball field">
         <div class="base home" aria-hidden="true"></div>
@@ -233,6 +251,7 @@
         <div class="base third">
           <span class="runner-icon runner-dot" style="display: none;" aria-hidden="true"></span>
         </div>
+      </div>
       </div>
     </div>
     <div class="play-panel">
