@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>John Moretti | Product</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#00ced1",
+                        "background-light": "#f0fdfa",
+                        "background-dark": "#062a2a",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased overflow-x-hidden">
+<div class="relative flex min-h-screen flex-col">
+<!-- Top Navigation -->
+<nav class="sticky top-0 z-50 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-primary/10 px-6 py-4">
+<div class="max-w-6xl mx-auto flex items-center justify-end">
+<div class="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-600 dark:text-slate-300">
+<a class="hover:text-primary transition-colors" href="#">Home</a>
+
+<!--
+<a class="hover:text-primary transition-colors" href="#labs">Work Projects</a>
+<a class="hover:text-primary transition-colors" href="#philosophy">Not Work Projects</a>
+-->
+<a class="hover:text-primary transition-colors" href="https://linkedin.com/in/jmoretti">Connect</a>
+</div>
+<div class="md:hidden">
+<span class="material-symbols-outlined text-3xl">menu</span>
+</div>
+</div>
+</nav>
+<!--End Top Navigation-->
+
+<main class="flex-1">
+<!-- Breadcrumbs -->
+<div class="max-w-5xl mx-auto px-6 py-6 flex items-center gap-2 text-sm">
+<a class="text-primary font-medium hover:underline" href="work-projects.html">Projects</a>
+<span class="text-slate-400">/</span>
+<span class="text-slate-600 dark:text-slate-400">Dash</span>
+</div>
+<!-- Hero Section -->
+<section class="max-w-5xl mx-auto px-6 mb-12">
+<div class="relative overflow-hidden rounded-xl aspect-[21/9] flex flex-col justify-end group">
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10"></div>
+<img class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Dash with iPad" src="images/Dash01.jpg"/>
+<div class="relative z-20 p-8 md:p-12">
+<span class="inline-block px-3 py-1 bg-primary text-white text-xs font-bold uppercase tracking-wider rounded-full mb-4">Project Deep Dive</span>
+<h1 class="text-white text-3xl md:text-5xl font-extrabold leading-tight">Dash: Wonder Workshop</h1>
+</div>
+</div>
+</section>
+<!-- Project Intro -->
+<section class="max-w-6xl mx-auto px-6 grid md:grid-cols-3 gap-12 mb-24">
+<div class="md:col-span-2 space-y-6">
+<h2 class="text-primary text-sm font-bold uppercase tracking-widest">My Role</h2>
+<h3 class="text- font-black tracking-tight">Mechanical Design Engineer -> Product Team Lead -> Director of Product Program Management</h3>
+
+
+<p class="text-xl slate-600 dark:text-slate-400 text-lg leading-relaxed">
+                    At Wonder Workshop, I joined as employee #12 and the first mechanical engineer. I eventually led the product team which consisted of 2 mechanical engineers and an industrial designer. When I rejoined the company after leaving for 3 years, I led the product management, program management and content teams. Full team size was 11 people and included our product managers, curriculum specialists, an editor, an animator and an illustractor.
+                </p>
+            
+
+            </div>
+<!-- Start Project Focus Section
+<div class="space-y-6">
+<div class="p-6 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-primary/10">
+<h4 class="font-bold mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">analytics</span>
+                        Project Focus
+                    </h4>
+<ul class="space-y-3 text-sm text-slate-600 dark:text-slate-400">
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-xs text-primary mt-1">check_circle</span>
+                            Autonomous machine perception
+                        </li>
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-xs text-primary mt-1">check_circle</span>
+                            High-throughput mechanical design
+                        </li>
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-xs text-primary mt-1">check_circle</span>
+                            SaaS integration for operational monitoring
+                        </li>
+</ul>
+</div>
+</div>
+End Project Focus Section -->
+</section>
+<!-- Product Strategy - Section 1 -->
+<section class="bg-primary/5 py-24">
+<div class="max-w-5xl mx-auto px-6">
+<div class="grid md:grid-cols-2 gap-16 items-center">
+<div>
+
+<h3 class="text-4xl font-black mb-6 leading-tight">Lowering the barrier<br>of entry</h3>
+
+<p class="text-slate-600 dark:text-slate-400 text-lg mb-8 leading-relaxed">
+When designing the Dash robot for Wonder Workshop, I wanted ALL kids to feel like this robot was for them. To do this I did a color study to ensure that our color didn’t make the robot feel like a boy’s toy or a girl’s toy. I pushed for a brighter blue with more teal in it than our original darker blue prototypes. This color had a broader appeal with our testers. While many in our startup did not want a change at first, they were convinced with the results from the studies. 
+                        </p>
+
+</div>
+<div class="relative rounded-xl overflow-hidden shadow-2xl">
+<img class="w-full h-full object-cover" data-alt="dash before after" src="images/dash/dash-orig.png"/>
+<div class="absolute inset-0 bg-primary/10 mix-blend-multiply"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- Project Section 2-->
+<section class="bg-white dark:bg-background-dark py-24">
+<div class="max-w-5xl mx-auto px-6">
+<div class="grid md:grid-cols-2 gap-16 items-center">
+<div class="relative rounded-xl overflow-hidden shadow-2xl">
+<img class="w-full h-full object-cover" data-alt="Girl hugs Dash" src="images/dash/dash-hug.png"/>
+<div class="absolute inset-0 bg-primary/10 mix-blend-multiply"></div>
+</div>
+<div>
+<h3 class="text-4xl font-black mb-6 leading-tight">First-time user experience</h3>
+<p class="text-slate-600 dark:text-slate-400 text-lg mb-8 leading-relaxed">
+A lot of kids think that robots are not their thing. With a user like this, I knew that the first 10 seconds with the robot were critical to change that perception. I had the team focus on the first time user experience so that when the robot was powered on it made an instant connection with the child. The result was that Dash acts like it is being startled awake, looks around, then up, blinks and says “Howdy-Do!” Testing consistently showed users’ faces lighting up and smiling. This quick introduction often makes an instant connection with the user and the result is that they are excited to see what they can do with Dash.                        </p>
+
+
+</div>
+</section>
+<!-- Project Section 3 -->
+<section class="bg-primary/5 py-24 mb-20">
+<div class="max-w-5xl mx-auto px-6">
+<div class="grid md:grid-cols-2 gap-16 items-center">
+<div>
+<h3 class="text-4xl font-black mb-6 leading-tight">Designing for teachers and school districts</h3>
+<p class="text-slate-600 dark:text-slate-400 text-lg mb-8 leading-relaxed">
+When I returned to Wonder Workshop, the company had shifted from targeting consumers to targeting the education market. We had a great product for kids, but a product that was missing key elements needed to scale in the education market.
+<br><br>
+I focused my team on research through interviews, weekly user testing and looking into our app metrics. I prioritized the features with the largest impacts from the research: giving district administrators and teachers confidence in users our product, making it easier for IT teams to set up our apps, and making it easier for teachers to set up and use Dash effectively. 
+                        </p>
+
+</div>
+<div class="relative rounded-xl overflow-hidden shadow-2xl">
+<img class="w-full h-full object-cover" data-alt="Teacher and student with Dash" src="images/dash/dash-class.png"/>
+<div class="absolute inset-0 bg-primary/10 mix-blend-multiply"></div>
+</div>
+</div>
+</div>
+</section>
+<!--End Project Section 3-->
+
+<!-- Project Section 4-->
+<section class="bg-white dark:bg-background-dark py-24">
+<div class="max-w-5xl mx-auto px-6">
+<div class="grid md:grid-cols-2 gap-16 items-center">
+<div class="relative rounded-xl overflow-hidden shadow-2xl">
+<img class="w-full h-full object-cover" data-alt="Dash dashboards" src="images/dash/dash-school.png"/>
+<div class="absolute inset-0 bg-primary/10 mix-blend-multiply"></div>
+</div>
+<div>
+<h3 class="text-4xl font-black mb-6 leading-tight">Saving time</h3>
+<p class="text-slate-600 dark:text-slate-400 text-lg mb-8 leading-relaxed">
+What seemed like a P2 feature at first, I realized how important roster importing was when a district IT leader explained without roster imports their team wouldn’t whitelist our apps for use in the district. This feature not only save IT teams time, but was essential to get our apps approved and the software ready to go early in the school year. 
+<br><br>
+For lesson planning, we focused on only using common objects in classrooms and activities with little to no setup and cleanup time. I looked into how to store the robots. We observed that when you plug in 20 robots at a time to charge, they all turn back on because the default behavior was to power on when plugged in. We changed that. 
+
+</div>
+</section>
+<!-- End Project Section 4-->
+<!-- Project Section 5 -->
+<section class="bg-primary/5 py-24 mb-20">
+<div class="max-w-5xl mx-auto px-6">
+<div class="grid md:grid-cols-2 gap-16 items-center">
+<div>
+<h3 class="text-4xl font-black mb-6 leading-tight">Giving teachers<br>super powers</h3>
+<p class="text-slate-600 dark:text-slate-400 text-lg mb-8 leading-relaxed">
+Teachers needed effective classroom management tools to teach 25+ students in one room. Through multiple iterations of testing and building, we landed on dashboards to give a general view of where each student is and a detailed view that shows where a student is stuck and possible solutions to help them. Teachers could teach a new subject effectively and with confidence, even with a large class with a wide range of abilities.
+                        </p>
+
+</div>
+<div class="relative rounded-xl overflow-hidden shadow-2xl">
+<img class="w-full h-full object-cover" data-alt="Teacher and student with Dash" src="images/dash/dash-class-tools.png"/>
+<div class="absolute inset-0 bg-primary/10 mix-blend-multiply"></div>
+</div>
+</div>
+</div>
+</section>
+<!--End Project Section 5-->
+<!-- Project Section 6-->
+<section class="bg-white dark:bg-background-dark py-24">
+<div class="max-w-5xl mx-auto px-6">
+<div class="grid md:grid-cols-2 gap-16 items-center">
+<div class="relative rounded-xl overflow-hidden shadow-2xl">
+<img class="w-full h-full object-cover" data-alt="Teach wonder logo" src="images/dash/teachwonder.png"/>
+<div class="absolute inset-0 bg-primary/10 mix-blend-multiply"></div>
+</div>
+<div>
+<h3 class="text-4xl font-black mb-6 leading-tight">Giving confidence</h3>
+<p class="text-slate-600 dark:text-slate-400 text-lg mb-8 leading-relaxed">
+I saw through interviews with school district administrators that one key to bringing on new curriculum was to provide professional development. My team worked with an outside group to create Teach Wonder, our teacher training course. Breaking down the fundamentals of coding into digestible categories led to more teachers having more confidence that they can successfully teach this subject.
+<br><br>
+This professional development course also gives districts confidence that their educators will be ready to teach this challenging subject and removes one key blocker when it is time to make the purchasing decision. 
+</div>
+</section>
+<!-- End Project Section 6-->
+<!-- Metrics Grid (Moved to bottom) -->
+ <br>
+ <br>
+ <br>
+<section class="max-w-5xl mx-auto px-6 mb-24">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="flex flex-col gap-2 rounded-xl p-8 bg-white dark:bg-slate-800 border border-primary/10 shadow-xl shadow-primary/5 transition-transform hover:-translate-y-1">
+<p class="text-slate-500 dark:text-slate-400 text-sm font-medium">Used at more than</p>
+<p class="text-primary tracking-tight text-4xl font-black">40,000</p>
+<p class="text-slate-500 dark:text-slate-400 text-sm font-medium">schools world wide</p>
+
+
+</div>
+<div class="flex flex-col gap-2 rounded-xl p-8 bg-white dark:bg-slate-800 border border-primary/10 shadow-xl shadow-primary/5 transition-transform hover:-translate-y-1">
+<p class="text-slate-500 dark:text-slate-400 text-sm font-medium">Sold more than</p>
+<p class="text-primary tracking-tight text-4xl font-black">700,000</p>
+<p class="text-slate-500 dark:text-slate-400 text-sm font-medium">units and counting</p>
+</div>
+<div class="flex flex-col gap-2 rounded-xl p-8 bg-white dark:bg-slate-800 border border-primary/10 shadow-xl shadow-primary/5 transition-transform hover:-translate-y-1">
+<p class="text-slate-500 dark:text-slate-400 text-sm font-medium">Loved by students in over</p>
+<p class="text-primary tracking-tight text-4xl font-black">65</p>
+<p class="text-slate-500 dark:text-slate-400 text-sm font-medium">countries around the world</p>
+
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-background-light dark:bg-background-dark py-20 px-6 border-t border-primary/5">
+<div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-12">
+<div class="text-center md:text-left">
+<h3 class="text-3xl font-black mb-4" style=""><span class="text-primary italic" style="">Let's connect!</span></h3>
+<div class="flex justify-center md:justify-start gap-4">
+<a class="p-3 bg-slate-100 dark:bg-slate-800 rounded-full hover:text-primary transition-colors" href="https://linkedin.com/in/jmoretti" target="_blank" style="">
+<svg class="size-6 fill-current" viewbox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"></path></svg>
+</a>
+<a class="p-3 bg-slate-100 dark:bg-slate-800 rounded-full hover:text-primary transition-colors" href="https://github.com/mo-johnny" target="_blank" style="">
+<svg class="size-6 fill-current" viewbox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"></path></svg>
+</a>
+<a class="p-3 bg-slate-100 dark:bg-slate-800 rounded-full hover:text-primary transition-colors flex items-center justify-center" href="mailto:jmoretti@gmail.com">
+<span class="material-symbols-outlined size-6" style="font-size: 24px;">mail</span>
+</a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+</body></html>

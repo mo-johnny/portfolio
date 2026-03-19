@@ -36,12 +36,23 @@
 <div class="relative flex min-h-screen flex-col">
 <!-- Top Navigation -->
 <nav class="sticky top-0 z-50 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-primary/10 px-6 py-4">
-<div class="max-w-6xl mx-auto flex items-center justify-between">
+<div class="max-w-6xl mx-auto flex items-center justify-end">
+<div class="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-600 dark:text-slate-300">
+<a class="hover:text-primary transition-colors" href="#">Home</a>
+
+
+<a class="hover:text-primary transition-colors" href="work-projects.html">Work Projects</a>
+<!--
+<a class="hover:text-primary transition-colors" href="#philosophy">Not Work Projects</a>
+-->
+<a class="hover:text-primary transition-colors" href="https://linkedin.com/in/jmoretti">Connect</a>
+</div>
 <div class="md:hidden">
-<span class="material-symbols-outlined text-3xl" style="">menu</span>
+<span class="material-symbols-outlined text-3xl">menu</span>
 </div>
 </div>
 </nav>
+<!--End Top Navigation-->
 <main class="flex-grow">
 <!-- Hero Section -->
 <section class="relative pt-20 pb-32 px-6 overflow-hidden">
@@ -82,7 +93,7 @@ Bringing experience from aerospace to AI with toy design, edtech and robotics al
 <div class="grid md:grid-cols-2 gap-12"><!-- Carter (1st, Image Left, Text Right) -->
 <div class="group cursor-pointer grid md:grid-cols-2 gap-12 items-center col-span-2">
 <div class="relative rounded-[2.5rem] overflow-hidden aspect-video bg-indigo-100 transition-transform duration-500 group-hover:-translate-y-2">
-<img class="w-full h-full object-cover mix-blend-multiply opacity-80 group-hover:opacity-100 transition-opacity" data-alt="Carter Robot" src="images/Carter04.png.webp" style=""/>
+<img class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" data-alt="Carter Robot" src="images/Carter04.png" style=""/>
 <div class="absolute inset-0 bg-gradient-to-t from-primary/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
 <div class="absolute bottom-6 left-6">
 <span class="bg-white px-4 py-1.5 rounded-full text-xs font-bold text-primary uppercase shadow-lg" style="">Robotics & AI</span>
@@ -111,7 +122,7 @@ Led product and content teams to turn a consumer focused device into the leading
 -->
 </div>
 <div class="relative rounded-[2.5rem] overflow-hidden aspect-video bg-emerald-10 transition-transform duration-500 group-hover:-translate-y-2 order-1 md:order-2">
-<img class="w-full h-full object-cover mix-blend-multiply opacity-80 group-hover:opacity-100 transition-opacity" data-alt="Dash robot with app" src="images/Dash01.jpg"/>
+<img class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" data-alt="Dash robot with app" src="images/Dash01.jpg"/>
 <div class="absolute inset-0 bg-gradient-to-t from-primary/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
 <div class="absolute bottom-6 left-6">
 <span class="bg-white px-4 py-1.5 rounded-full text-xs font-bold text-primary uppercase shadow-lg" style="">EdTech</span>
@@ -123,7 +134,7 @@ Led product and content teams to turn a consumer focused device into the leading
 <!-- Dishcraft Robotics (3rd, Image Left, Text Right) -->
 <div class="group cursor-pointer grid md:grid-cols-2 gap-12 items-center col-span-2 md:mt-12">
 <div class="relative rounded-[2.5rem] overflow-hidden aspect-video bg-purple-100 transition-transform duration-500 group-hover:-translate-y-2">
-<img class="w-full h-full object-cover mix-blend-multiply opacity-80 group-hover:opacity-100 transition-opacity" data-alt="robotic dishwasher" src="images/dishcraft01.jpg" style=""/>
+<img class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" data-alt="robotic dishwasher" src="images/dishcraft01.jpg" style=""/>
 <div class="absolute inset-0 bg-gradient-to-t from-primary/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
 <div class="absolute bottom-6 left-6">
 <span class="bg-white px-4 py-1.5 rounded-full text-xs font-bold text-primary uppercase shadow-lg" style="">Robotics & ML</span>
